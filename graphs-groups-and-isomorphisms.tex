@@ -1,0 +1,43 @@
+\documentclass{iansnotes}
+
+\title{Graphs, Groups, and Isomorphisms}
+\author{ian.mcloughlin@atu.ie}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+Are all programming languages equally capable?
+What are the limits of computation?
+How can we discuss computation without worrying about the details of specific machines?
+To answer these questions, we need a simple way of describing problems.
+In the following article we will define the basic building blocks of computing.
+
+
+\section{References}
+  We will use two reference texts: Norman Biggs' \emph{Discrete Mathematics}\autocite{biggs} and Michael Sipser's \emph{Introduction to the Theory of Computation}\autocite{sipser}.
+  Another good resource is the Open Logic Text~\autocite{openlogictext}.
+  On the practical side, I recommend also use The Python Tutorial\autocite{pythontutorial}, The Python Software Foundation's official tutorial for Python.
+
+
+\section{Graphs} 
+  A graph is
+  \begin{minted}{python}
+def f(x):
+  ans = 1
+  for i in range(x):
+    ans = ans * i
+  return ans
+  \end{minted}
+  In the earlier definition of a function we made no reference to algorithms.
+  To mimic those kinds of functions we can just use a dictionary.
+  \begin{minted}{python}
+def f(x):
+  pairs = {1: 1, 2: 4, 3: 9}
+  return pairs[x]
+  \end{minted}
+
+\section{Further Topics}
+  Now that we have defined our basic building blocks, we can discuss topics in computation and computability.
+\end{document} 
