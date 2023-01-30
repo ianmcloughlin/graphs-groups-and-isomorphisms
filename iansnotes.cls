@@ -80,6 +80,10 @@
 \usetikzlibrary{calc}
 % For layering.
 \usetikzlibrary{backgrounds}
+% Graphs.
+\usetikzlibrary{graphs}
+\usetikzlibrary{graphs.standard}
+\usetikzlibrary{calc}
   
 % PGF plots version.
 \pgfplotsset{compat=1.18}

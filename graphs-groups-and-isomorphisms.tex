@@ -8,36 +8,128 @@
 
 \maketitle
 
-Are all programming languages equally capable?
-What are the limits of computation?
-How can we discuss computation without worrying about the details of specific machines?
-To answer these questions, we need a simple way of describing problems.
-In the following article we will define the basic building blocks of computing.
+\begin{center}
+  \begin{tikzpicture}
+    \graph [nodes={fill=atuorange, circle}, edges={draw=atunavy, thick}, counterclockwise, empty nodes, radius=16mm, n=6, phase=0] {
+      subgraph C_n []
+    };
+    \begin{scope}[shift={(32mm,0)}]
+      \graph [nodes={fill=atuorange, circle}, edges={draw=atunavy, thick}, counterclockwise, empty nodes, radius=16mm, n=6, phase=0] {
+        subgraph C_n []
+      };
+    \end{scope}
+  \end{tikzpicture}
+\end{center}
 
+Graphs provide a way of working with and visualizing connections between objects.
+They help us understand symmetry, relationships, and algorithms.
 
 \section{References}
-  We will use two reference texts: Norman Biggs' \emph{Discrete Mathematics}\autocite{biggs} and Michael Sipser's \emph{Introduction to the Theory of Computation}\autocite{sipser}.
+  We will use Norman Biggs' \emph{Discrete Mathematics}\autocite{biggs}, Biggs' \emph{Algebraic Graph Theory}\autocite{biggs_1974}, and Michael Sipser's \emph{Introduction to the Theory of Computation}\autocite{sipser}.
   Another good resource is the Open Logic Text~\autocite{openlogictext}.
-  On the practical side, I recommend also use The Python Tutorial\autocite{pythontutorial}, The Python Software Foundation's official tutorial for Python.
+  On the practical side, I recommend The Python Tutorial\autocite{pythontutorial}, The Python Software Foundation's official tutorial for Python.
 
 
 \section{Graphs} 
-  A graph is
-  \begin{minted}{python}
-def f(x):
-  ans = 1
-  for i in range(x):
-    ans = ans * i
-  return ans
-  \end{minted}
-  In the earlier definition of a function we made no reference to algorithms.
-  To mimic those kinds of functions we can just use a dictionary.
-  \begin{minted}{python}
-def f(x):
-  pairs = {1: 1, 2: 4, 3: 9}
-  return pairs[x]
-  \end{minted}
+  A graph $G$ is a $2$-tuple $(N, E)$ where $N$ is a finite set and $E$ is a set of $2$-subsets of $N$.
+  A $2$-subset is a subset with two elements.
+  The elements of $N$ are called nodes or vertices.
+  The elements of $E$ are called edges.
 
-\section{Further Topics}
-  Now that we have defined our basic building blocks, we can discuss topics in computation and computability.
+  Suppose $N = \{ a, b, c \}$ and $E = \{ \{a,b\}, \{b,c\} \}$.
+  We can represent this graph using a picture, as below.
+  \begin{center}
+    \begin{tikzpicture}
+      \node[fill=atuorange, circle] (a) at (0, 0) {$a$};
+      \node[fill=atuorange, circle] (b) at (0, 1.5) {$b$};
+      \node[fill=atuorange, circle] (c) at (1.5, 1.5) {$c$};
+      \draw[atunavy, thick] (a) -- (b);
+      \draw[atunavy, thick] (c) -- (b);
+    \end{tikzpicture}
+  \end{center}
+  Note that the graph says nothing about colours or locations of nodes.
+  That is just part of the picture.
+  We can draw the same graph differently if we wish.
+  \begin{center}
+    \begin{tikzpicture}
+      \node[fill=atuteal, circle] (a) at (0, 0) {$a$};
+      \node[fill=atuteal, circle] (b) at (1, -1) {$b$};
+      \node[fill=atuteal, circle] (c) at (2, 0) {$c$};
+      \draw[atugreen, thick] (a) -- (b);
+      \draw[atugreen, thick] (c) -- (b);
+    \end{tikzpicture}
+  \end{center}
+  We have to be careful not to mistake the picture for the graph.
+
+  One way to represent a graph is Python is to use sets.
+  Unfortunately, sets in Python cannot contain other sets.
+  Sets in Python are \emph{unhashable}.
+  There is a similar, immutable type called \mintinline{python}{frozenset} that we can use.
+  \begin{minted}{python}
+N = {'a', 'b', 'c'}
+# TypeError: unhashable type: 'set':
+# E = {{'a', 'b'}, {'b', 'c'}}
+E = {frozenset({'a', 'b'}), frozenset({'b', 'c'})}
+  \end{minted}
+  In any case, we usually use other, more efficient data structures to represent sets, such as adjacency matrices.
+  More on those later.
+
+\section{Subgraphs}
+  A subgraph is a graph fully contained in another graph.
+  We say $G' = (N', E')$ is a subgraph of $G = (N, E)$ when $N'$ is a subset of $N$ and\footnote{This last condition just ensures that $E'$ is a set of $2$-subsets of $N'$.} $E'$ only contains edges containing elements of $N'$.
+
+  Consider the following picture of the \emph{cycle graph} $C_6$.
+  It contains as subgraphs several copies of the graph above.
+  Some of these copies overlap.
+  One copy is depicted with teal nodes.
+  Remember the colours do not matter to the graph.
+  The graph does not care how it is drawn so long as the nodes and edges are correct.
+  \begin{center}
+    \begin{tikzpicture}
+      \node[fill=atuorange, circle] (0) at (0*360/6:2) {$0$};
+      \node[fill=atuorange, circle] (1) at (1*360/6:2) {$1$};
+      \node[fill=atuteal,   circle] (2) at (2*360/6:2) {$2$};
+      \node[fill=atuteal,   circle] (3) at (3*360/6:2) {$3$};
+      \node[fill=atuteal,   circle] (4) at (4*360/6:2) {$4$};
+      \node[fill=atuorange, circle] (5) at (5*360/6:2) {$5$};
+      \draw[atunavy,  thick] (0) -- (1);
+      \draw[atunavy,  thick] (1) -- (2);
+      \draw[atugreen, thick] (2) -- (3);
+      \draw[atugreen, thick] (3) -- (4);
+      \draw[atunavy,  thick] (4) -- (5);
+      \draw[atunavy,  thick] (5) -- (0);
+    \end{tikzpicture}
+  \end{center}
+
+\section{Adjacency Matrices}
+  A common way to represent a graph is with an adjacency matrix.
+  Two nodes $a$ and $b$ of a graph $G = (N, E)$ are \emph{adjacent} if $\{a,b\}$ is an edge of the graph --- that is, it is in $E$.
+  To form an adjacency matrix for a graph, we must create an ordering of $N$.
+  Remember $N$ is a set, so the elements do not come in any order.
+  
+  We can fix an ordering of $N$ by creating a tuple of length $|N|$\footnote{The notation $|S|$ means the number of elements in the set $S$.} where every element of $N$ appears exactly once.
+  Then the tuple defines an order on $N$.
+  With that order we can create the adjacency matrix of the graph with respect to it.
+
+  The \emph{adjacency matrix} of the graph $G = (N, E)$ according to the ordering $(n_1, n_2, \ldots, n_{|N|})$ of $N$ is then the matrix $A$ with entry $a_{ij}$ in row $i$ and column $j$ given by:
+  
+  \[ a_{ij} = \begin{cases} 1 & \text{if } \{n_i, n_j\} \in E \\ 0 & \text{otherwise.} \end{cases}\]
+
+  Here $i$ and $j$ range over $1$ to $|N|$.
+  
+  Consider the graph below where $N = \{a, b, c\}$ and $E = \{ \{a, b\}, \{b, c\} \}$.
+  \begin{center}
+    \begin{tikzpicture}
+      \node[fill=atuorange, circle] (a) at (0, 0) {$a$};
+      \node[fill=atuorange, circle] (b) at (0, 1.5) {$b$};
+      \node[fill=atuorange, circle] (c) at (1.5, 1.5) {$c$};
+      \draw[atunavy, thick] (a) -- (b);
+      \draw[atunavy, thick] (c) -- (b);
+    \end{tikzpicture}
+  \end{center}
+  We can fix $N$ in any order we like --- let us pick $(a,b,c)$.
+  Then the adjacency matrix is as follows.
+  \[ A = \begin{bmatrix} 0 & 1 & 0 \\ 1 & 0 & 1 \\ 0 & 1 & 0 \end{bmatrix} \]
+
+
 \end{document} 
