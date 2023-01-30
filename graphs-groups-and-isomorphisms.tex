@@ -111,13 +111,11 @@ E = {frozenset({'a', 'b'}), frozenset({'b', 'c'})}
   Then the tuple defines an order on $N$.
   With that order we can create the adjacency matrix of the graph with respect to it.
 
-  The \emph{adjacency matrix} of the graph $G = (N, E)$ according to the ordering $(n_1, n_2, \ldots, n_{|N|})$ of $N$ is then the matrix $A$ with entry $a_{ij}$ in row $i$ and column $j$ given by:
+  The \emph{adjacency matrix} of the graph $G = (N, E)$ according to the ordering $(n_1, n_2, \ldots, n_{|N|})$ of $N$ is the matrix $A$ with entry $a_{ij}$ in row $i$ and column $j$ given by the following formula where $i$ and $j$ range over $1$ to $|N|$.
   
   \[ a_{ij} = \begin{cases} 1 & \text{if } \{n_i, n_j\} \in E \\ 0 & \text{otherwise.} \end{cases}\]
 
-  Here $i$ and $j$ range over $1$ to $|N|$.
-  
-  Consider the graph below where $N = \{a, b, c\}$ and $E = \{ \{a, b\}, \{b, c\} \}$.
+  For example, consider the graph again where $N = \{a, b, c\}$ and $E = \{ \{a, b\}, \{b, c\} \}$.
   \begin{center}
     \begin{tikzpicture}
       \node[fill=atuorange, circle] (a) at (0, 0) {$a$};
@@ -130,6 +128,25 @@ E = {frozenset({'a', 'b'}), frozenset({'b', 'c'})}
   We can fix $N$ in any order we like --- let us pick $(a,b,c)$.
   Then the adjacency matrix is as follows.
   \[ A = \begin{bmatrix} 0 & 1 & 0 \\ 1 & 0 & 1 \\ 0 & 1 & 0 \end{bmatrix} \]
+  
+  We can more-or-less re-create a graph from an adjacency matrix.
+  An adjacency matrix does not tell us the elements the node set $N$ contains.
+  However, it does tell us exactly how many elements it contains and how they are connected with edges.
+  So, we can draw the graph from the adjacency matrix.
+  You might try drawing the graph represented by the following adjacency matrix.
 
+  \[ A = \begin{bmatrix} 0 & 1 & 1 & 0 \\ 1 & 0 & 1 & 1 \\ 1 & 1 & 0 & 1 \\ 0 & 1 & 1 & 0 \end{bmatrix} \]
+
+  It is worth considering what matrices are possible adjacency matrices of graphs.
+  We have specified that each entry must be either $0$ or $1$.
+  The matrix must also be square.
+
+  Note that it is impossible for a graph as we have defined it to have looped edge.
+  The edges must be $2$-subsets and sets cannot contain the same element more than once.
+  So when $a$ is a node, $\{ a, a \}$ cannot be an edge because it only contains one element, despite how we have written it.
+  This leads to the fact that an adjacency matrix has zeroes down the main diagonal.
+    
+  It is also symmetric along that diagonal --- $a_{ij}$ is equal to $a_{ji}$.
+  That is because any edge $\{ a, b \}$ is the same edge as $\{ b, a \}$.
 
 \end{document} 
