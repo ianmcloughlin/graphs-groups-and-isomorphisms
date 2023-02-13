@@ -104,7 +104,7 @@ E = {frozenset({'a', 'b'}), frozenset({'b', 'c'})}
 \section{Adjacency Matrices}
   A common way to represent a graph is with an adjacency matrix.
   Two nodes $a$ and $b$ of a graph $G = (N, E)$ are \emph{adjacent} if $\{a,b\}$ is an edge of the graph --- that is, it is in $E$.
-  To form an adjacency matrix for a graph, we must create an ordering of $N$.
+  To form an adjacency matrix for a graph, we must create an ordering of its node set $N$.
   Remember $N$ is a set, so the elements do not come in any order.
   
   We can fix an ordering of $N$ by creating a tuple of length $|N|$\footnote{The notation $|S|$ means the number of elements in the set $S$.} where every element of $N$ appears exactly once.
@@ -140,13 +140,33 @@ E = {frozenset({'a', 'b'}), frozenset({'b', 'c'})}
   It is worth considering what matrices are possible adjacency matrices of graphs.
   We have specified that each entry must be either $0$ or $1$.
   The matrix must also be square.
+  What other properties must it have?
+  Can you list a sufficient list of such properties?
 
-  Note that it is impossible for a graph as we have defined it to have looped edge.
+  Note that it is impossible for a graph as we have defined it to have looped edges.
+  A looped edge connects a node to itself.
   The edges must be $2$-subsets and sets cannot contain the same element more than once.
   So when $a$ is a node, $\{ a, a \}$ cannot be an edge because it only contains one element, despite how we have written it.
   This leads to the fact that an adjacency matrix has zeroes down the main diagonal.
     
-  It is also symmetric along that diagonal --- $a_{ij}$ is equal to $a_{ji}$.
+  An adjacency matrix is also symmetric along that diagonal --- $a_{ij}$ is equal to $a_{ji}$.
   That is because any edge $\{ a, b \}$ is the same edge as $\{ b, a \}$.
+
+\section{Digraphs and Multigraphs}
+  We can consider defining graphs differently if we want loops and directed edges.
+  Both concepts can be covered by changing the definition of the edge set to contain pairs\footnote{Pairs are $2$-tuples where we use parentheses notation. For example, $(a,b)$ is a pair where $a$ is the first element and $b$ the second.}
+  Then we can have a looped edge $(a,a)$ connecting node $a$ to itself.
+  We also then distinguish the edge $(a,b)$ from the edge $(b,a)$, as two edges connecting the same nodes but with opposite direction\footnote{Typically we say the direction of the edge $(a,b)$ is \emph{from} $a$ \emph{to} $b$.}.
+
+  When graphs are redefined in this way we usually call them \emph{digraphs}\footnote{We will always use the term digraph from now on, and reserve the word graph for our original definition.}.
+  We redefine the adjacency as you would expect.
+  The matrix entry $a_{ij}$ is $1$ if there is an edge from node $i$ to node $j$.
+  In that case, looped edges place a $1$ in the main diagonal and the matrix might not be symmetric\footnote{Symmetric matrices are mirrored along the main diagonal. The matrix transpose is equal to the matrix.}.
+
+  Digraphs, similar to our original definition of graphs, do not allow for more than one edge between the same node(s).
+  When we want repeated edges, we define the notion of a \emph{multiset}, which is a set that can contain multiple copies of the same object.
+  In that case we might call the graphs \emph{multigraphs} or even \emph{multidigraphs}.
+
+
 
 \end{document} 
