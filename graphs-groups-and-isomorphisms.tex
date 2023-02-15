@@ -8,18 +8,40 @@
 
 \maketitle
 
-\begin{center}
-  \begin{tikzpicture}
-    \graph [nodes={fill=atuorange, circle}, edges={draw=atunavy, thick}, counterclockwise, empty nodes, radius=16mm, n=6, phase=0] {
-      subgraph C_n []
-    };
-    \begin{scope}[shift={(32mm,0)}]
-      \graph [nodes={fill=atuorange, circle}, edges={draw=atunavy, thick}, counterclockwise, empty nodes, radius=16mm, n=6, phase=0] {
-        subgraph C_n []
-      };
-    \end{scope}
+\begin{figure}
+  \centering
+  \begin{tikzpicture}[every node/.style={circle,fill=atuorange}, every edge/.style={draw=atunavy,thick}]
+    \draw
+       (  0:0) node (0) {}
+    ++ ( 60:2) node (1) {}
+    ++ (  0:2) node (2) {}
+    ++ (300:2) node (3) {}
+    ++ (240:2) node (4) {}
+    ++ (180:2) node (5) {}
+       (  0:0)
+    ++ (120:2) node (6) {}
+    ++ (180:2) node (7) {}
+    ++ (240:2) node (8) {}
+    ++ (300:2) node (9) {}
+    ++ (  0:2) node (A) {}
+    (0) edge (1)
+    (1) edge (2)
+    (2) edge (3)
+    (3) edge (4)
+    (4) edge (5)
+    (5) edge (0)
+    (0) edge (6)
+    (6) edge (7)
+    (7) edge (8)
+    (8) edge (9)
+    (9) edge (A)
+    (A) edge (0)
+    (1) edge (6)
+    (5) edge (A);
   \end{tikzpicture}
-\end{center}
+  \caption{A graph with 11 nodes and 14 edges.}
+  \label{figure:agraph}
+\end{figure}
 
 Graphs provide a way of working with and visualizing connections between objects.
 They help us understand symmetry, relationships, and algorithms.
@@ -37,28 +59,36 @@ They help us understand symmetry, relationships, and algorithms.
   The elements of $E$ are called edges.
 
   Suppose $N = \{ a, b, c \}$ and $E = \{ \{a,b\}, \{b,c\} \}$.
-  We can represent this graph using a picture, as below.
-  \begin{center}
-    \begin{tikzpicture}
-      \node[fill=atuorange, circle] (a) at (0, 0) {$a$};
-      \node[fill=atuorange, circle] (b) at (0, 1.5) {$b$};
-      \node[fill=atuorange, circle] (c) at (1.5, 1.5) {$c$};
-      \draw[atunavy, thick] (a) -- (b);
-      \draw[atunavy, thick] (c) -- (b);
+  We can represent this graph using a picture, as in Figure~\ref{figure:asmallgraph}.
+  \begin{figure}
+    \centering
+    \begin{tikzpicture}[every node/.style={circle,fill=atuorange}, every edge/.style={draw=atunavy,thick}]
+      \draw
+        (0, 0) node (a) {$a$}
+        (0, 2) node (b) {$b$}
+        (2, 2) node (c) {$c$}
+        (a) edge (b)
+        (c) edge (b);
     \end{tikzpicture}
-  \end{center}
+    \caption{A small graph with 3 nodes and 2 edges.}
+    \label{figure:asmallgraph}
+  \end{figure}
   Note that the graph says nothing about colours or locations of nodes.
   That is just part of the picture.
-  We can draw the same graph differently if we wish.
-  \begin{center}
-    \begin{tikzpicture}
-      \node[fill=atuteal, circle] (a) at (0, 0) {$a$};
-      \node[fill=atuteal, circle] (b) at (1, -1) {$b$};
-      \node[fill=atuteal, circle] (c) at (2, 0) {$c$};
-      \draw[atugreen, thick] (a) -- (b);
-      \draw[atugreen, thick] (c) -- (b);
+  We can draw the same graph differently if we wish, as in Figure~\ref{figure:thesamegraph}.
+  \begin{figure}
+    \centering
+    \begin{tikzpicture}[every node/.style={circle,fill=atuteal}, every edge/.style={draw=atugreen,thick}]
+      \draw
+        (0, 0) node (a) {$a$}
+        (2, 0) node (b) {$b$}
+        (4, 0) node (c) {$c$}
+        (a) edge (b)
+        (c) edge (b);
     \end{tikzpicture}
-  \end{center}
+    \caption{The same graph drawn differently.}
+    \label{figure:thesamegraph}
+  \end{figure}
   We have to be careful not to mistake the picture for the graph.
 
   \newthought{In Python,} one way to represent a graph is to use sets.
@@ -78,28 +108,32 @@ E = {frozenset({'a', 'b'}), frozenset({'b', 'c'})}
   A subgraph is a graph fully contained in another graph.
   We say $G' = (N', E')$ is a subgraph of $G = (N, E)$ when $N'$ is a subset of $N$ and\footnote{This last condition just ensures that $E'$ is a set of $2$-subsets of $N'$.} $E'$ only contains edges containing elements of $N'$.
 
-  Consider the following picture of the \emph{cycle graph} $C_6$.
+  Consider the following picture of the \emph{cycle graph} $C_6$ in Figure~\ref{figure:subgraphs}.
   It contains as subgraphs several copies of the graph above.
   Some of these copies overlap.
   One copy is depicted with teal nodes.
   Remember the colours do not matter to the graph.
   The graph does not care how it is drawn so long as the nodes and edges are correct.
-  \begin{center}
-    \begin{tikzpicture}
-      \node[fill=atuorange, circle] (0) at (0*360/6:2) {$0$};
-      \node[fill=atuorange, circle] (1) at (1*360/6:2) {$1$};
-      \node[fill=atuteal,   circle] (2) at (2*360/6:2) {$2$};
-      \node[fill=atuteal,   circle] (3) at (3*360/6:2) {$3$};
-      \node[fill=atuteal,   circle] (4) at (4*360/6:2) {$4$};
-      \node[fill=atuorange, circle] (5) at (5*360/6:2) {$5$};
-      \draw[atunavy,  thick] (0) -- (1);
-      \draw[atunavy,  thick] (1) -- (2);
-      \draw[atugreen, thick] (2) -- (3);
-      \draw[atugreen, thick] (3) -- (4);
-      \draw[atunavy,  thick] (4) -- (5);
-      \draw[atunavy,  thick] (5) -- (0);
+  \begin{figure}
+    \centering
+    \begin{tikzpicture}[every node/.style={circle}, every edge/.style={thick}]
+      \draw
+           (  0:0) node[fill=atuorange] (0) {$0$}
+        ++ ( 60:2) node[fill=atuorange] (1) {$1$}
+        ++ (  0:2) node[fill=atuteal]   (2) {$2$}
+        ++ (300:2) node[fill=atuteal]   (3) {$3$}
+        ++ (240:2) node[fill=atuteal]   (4) {$4$}
+        ++ (180:2) node[fill=atuorange] (5) {$5$}
+        (0) edge[draw=atunavy]  (1)
+        (1) edge[draw=black]    (2)
+        (2) edge[draw=atugreen] (3)
+        (3) edge[draw=atugreen] (4)
+        (4) edge[draw=black]    (5)
+        (5) edge[draw=atunavy]  (0);
     \end{tikzpicture}
-  \end{center}
+    \caption{Subgraphs of a graph.}
+    \label{figure:subgraphs}
+  \end{figure}
 
 \section{Adjacency Matrices}
   A common way to represent a graph is with an adjacency matrix.
@@ -116,15 +150,19 @@ E = {frozenset({'a', 'b'}), frozenset({'b', 'c'})}
   \[ a_{ij} = \begin{cases} 1 & \text{if } \{n_i, n_j\} \in E \\ 0 & \text{otherwise.} \end{cases}\]
 
   For example, consider the graph again where $N = \{a, b, c\}$ and $E = \{ \{a, b\}, \{b, c\} \}$.
-  \begin{center}
-    \begin{tikzpicture}
-      \node[fill=atuorange, circle] (a) at (0, 0) {$a$};
-      \node[fill=atuorange, circle] (b) at (0, 1.5) {$b$};
-      \node[fill=atuorange, circle] (c) at (1.5, 1.5) {$c$};
-      \draw[atunavy, thick] (a) -- (b);
-      \draw[atunavy, thick] (c) -- (b);
+  \begin{figure}
+    \centering
+    \begin{tikzpicture}[every node/.style={fill=atuorange, circle}, every edge/.style={draw=atunavy, thick}]
+      \draw 
+        (0, 0) node (a) {$a$}
+        (0, 2) node (b) {$b$}
+        (2, 2) node (c) {$c$}
+        (a) edge (b)
+        (c) edge (b);
     \end{tikzpicture}
-  \end{center}
+    \caption{The same graph again.}
+    \label{figure:thesamegraph}
+  \end{figure}
   We can fix $N$ in any order we like --- let us pick $(a,b,c)$.
   Then the adjacency matrix is as follows.
   \[ A = \begin{bmatrix} 0 & 1 & 0 \\ 1 & 0 & 1 \\ 0 & 1 & 0 \end{bmatrix} \]
@@ -169,8 +207,119 @@ E = {frozenset({'a', 'b'}), frozenset({'b', 'c'})}
   While digraphs and multigraphs have many applications, we will focus solely on graphs under our original definition as they have the broadest applications.
 
 \section{Isomorphisms}
+  Informally, we call two graphs with identical structure isomorphic.
+  The node sets might be different, but they have the same number of elements and are connected in the same way by edges.
+  We will define this concept more clearly.
+
+  An \emph{isomorphism} from a graph $G_1 = (N_1,E_1)$ to a graph $G_2 = (N_2,E_2)$ is a bijection $f$ from $N_1$ to $N_2$ such that $\{f(a),f(b)\}$ is an edge in $E_2$ if and only if $\{a,b\}$ is an edge in $E_1$.
+
+  A bijection can only exist between sets of equal size, so the two graphs must have the same number of nodes.
+  Since a bijection is one-to-one, unique edges must also map to unique edges so that the edge sets have the same size.
+  However, a bijection might not exist even when the node sets and edge sets respectively have the same size.
+
+  We say two graphs are isomorphic if there is any isomorphism between them.
+  Note that a bijection has a natural inverse.
+  The inverse of a bijection $f(x) = y$ is the map $f^{-1}(y) = x$.
+  So, if there is an isomorphism $f$ from $G_1$ to $G_2$, then $f^{-1}$ is an isomorphism from $G_2$ to $G_1$.
+
+  For graphs with only three or four nodes, it is often easy to spot if they are isomorphic.
+  The same is true for certain special types of graphs.
+  For instance, if two graphs are fully connected\footnote{A fully connected graph contains all possible edges.} then, assuming they have the same number of nodes, it is clear they are isomorphic.
+  However, for most pairs of graphs, it is difficult to determine whether they are isomorphic.
+  Consider the two graphs in Figure~\ref{figure:twographsiso}.
+
+  \begin{figure}
+    \centering
+    \begin{tikzpicture}
+      \begin{scope}[every node/.style={circle,fill=atunavy}, every edge/.style={draw=black,thick}]
+        \draw
+          (1,0) node (a) {}
+          (1,3) node (b) {}
+          (3,0) node (c) {}
+          (3,2) node (d) {}
+          (0,0) node (e) {}
+          (0,2) node (f) {}
+          (a) edge (b)
+          (a) edge (d)
+          (a) edge (e)
+          (b) edge (c)
+          (b) edge (d)
+          (b) edge (e)
+          (b) edge (f)
+          (c) edge (d)
+          (d) edge (e)
+          (d) edge (f)
+          (e) edge (f);
+      \end{scope}
+      \begin{scope}[every node/.style={circle,fill=atugreen}, every edge/.style={draw=black,thick}, xshift=50mm]
+        \draw
+          (0,0) node (a) {}
+          (0,2) node (b) {}
+          (2,0) node (c) {}
+          (2,2) node (d) {}
+          (3,0) node (e) {}
+          (3,2) node (f) {}
+          (a) edge (b)
+          (a) edge (c)
+          (c) edge (e)
+          (a) edge (d)
+          (b) edge (c)
+          (b) edge (d)
+          (b) edge (e)
+          (b) edge (d)
+          (d) edge (f)
+          (c) edge (d)
+          (d) edge (e)	            
+          (e) edge (f);
+      \end{scope}
+    \end{tikzpicture}
+    \caption{Are these graphs isomorphic?}
+    \label{figure:twographsiso}
+  \end{figure}
+
+  Some properties of a graph must be preserved by an isomorphism.
+  One such property is the number of nodes of a given degree.
+  The degree of a node is the number of edges that include it\footnote{That is, the number of nodes adjacent to it.}.
+
+  The leftmost graph in Figure~\ref{figure:twographsiso} has two nodes of degree 5 but the rightmost has only one.
+  So those graphs cannot be isomorphic.
+  Had we not spotted a property like that --- or if there was none --- how many maps would we have to consider for an isomorphism?
+
+  Suppose we have two graphs with four nodes, and we want to check whether they are isomorphic.
+  We are looking for a bijection that preserves the edges.
+  If two nodes are connected before the map, then they must be connected after the map.
+  Likewise, if they are not connected.
+
+  The brute force method is to try all possible bijections between the node sets and then compare the edge sets under the map.
+  How many possible bijections are there?
+  
+  Let's suppose the first graph's node set is $\{a, b, c, d\}$ and the second graph's node set is $\{w, x, y, z\}$.
+  Then we can proceed to count them as follows.
+  First, we must map $a$ to one of the four nodes $w$, $x$, $y$, or $z$.
+  There are four options, each valid.
+  Once that is chosen, there are three options to choose from for $b$, then two for $c$, and only one choice for $d$.
+
+  The correct thing to do with the number four, three, two, and one is to multiply them.
+  Why?
+  Well, for every choice of what $a$ maps to, there are three choices for $b$, and for each of those there are two for $c$, and for each of those one for $d$.
+  It is the \emph{for each} that implies multiplication.
+  So when we have four nodes, there are four factorial bijections to check for isomorphism.
+
+  The same argument works for any number of nodes.
+  The number of possible bijections between two sets of $n$ elements is $n!$ which grows terribly quickly compared to $n$.
 
 \section{Permutations}
+  The brute force algorithm for checking bijections for isomorphism tries all possible maps.
+  One way to generate all maps in practice is to fix a listing of the first node set and then generate all possible listings of the second node set.
+  
+  For example, suppose the first node set is $\{a, b, c, d\}$.
+  Remember sets do not have order, but tuples do.
+  So we fix the tuple $t = (a, b, c, d)$ containing each element of the set exactly once.
+  
+  Suppose the second node set is $\{w, x, y, z\}$ and we create again a tuple $s$ containing each of those elements in some order.
+  Let us use $s = (x, z, y, w)$ as an example for now.
+  Then we can say $t$ and $s$ represent a bijection from the first node set to the second by specifying that the first element in $t$ maps to the first in $s$, the second in $t$ to the second in $s$, and so on.
+  
 
 \section{Automorphisms}
 
