@@ -78,7 +78,7 @@ They help us understand symmetry, relationships, and algorithms.
   We can draw the same graph differently if we wish, as in Figure~\ref{figure:thesamegraph}.
   \begin{figure}
     \centering
-    \begin{tikzpicture}[every node/.style={circle,fill=atuteal}, every edge/.style={draw=atugreen,thick}]
+    \begin{tikzpicture}[every node/.style={circle,fill=atuteal}, every edge/.style={draw=atuteal,thick}]
       \draw
         (0, 0) node (a) {$a$}
         (2, 0) node (b) {$b$}
@@ -126,8 +126,8 @@ E = {frozenset({'a', 'b'}), frozenset({'b', 'c'})}
         ++ (180:2) node[fill=atuorange] (5) {$5$}
         (0) edge[draw=atunavy]  (1)
         (1) edge[draw=black]    (2)
-        (2) edge[draw=atugreen] (3)
-        (3) edge[draw=atugreen] (4)
+        (2) edge[draw=atuteal] (3)
+        (3) edge[draw=atuteal] (4)
         (4) edge[draw=black]    (5)
         (5) edge[draw=atunavy]  (0);
     \end{tikzpicture}
@@ -251,7 +251,7 @@ E = {frozenset({'a', 'b'}), frozenset({'b', 'c'})}
           (d) edge (f)
           (e) edge (f);
       \end{scope}
-      \begin{scope}[every node/.style={circle,fill=atugreen}, every edge/.style={draw=black,thick}, xshift=50mm]
+      \begin{scope}[every node/.style={circle,fill=atuteal}, every edge/.style={draw=black,thick}, xshift=50mm]
         \draw
           (0,0) node (a) {}
           (0,2) node (b) {}

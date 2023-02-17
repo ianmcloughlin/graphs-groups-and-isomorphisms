@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{iansnotes}[2023/01/27 v1.0.2 Ian's notes.]
+\ProvidesClass{iansnotes}[2023/02/17 v1.0.10 Ian's notes.]
 
 % Based on Tufte handout class.
 \LoadClass[a4paper, nobib]{tufte-handout}
@@ -54,6 +54,8 @@
 \usepackage{array}
 % Bibliography.
 \usepackage[style=verbose, autocite=footnote, backend=biber]{biblatex}
+% Images.
+\usepackage{graphicx}
 
 % Various tikz libraries.
 % For drawing mind maps.
@@ -82,7 +84,9 @@
 \usetikzlibrary{backgrounds}
 % Graphs.
 \usetikzlibrary{graphs}
+% Standard graph types.
 \usetikzlibrary{graphs.standard}
+% Calculations in TikZ.
 \usetikzlibrary{calc}
   
 % PGF plots version.
@@ -92,15 +96,17 @@
 \newcolumntype{x}[1]{>{\centering\arraybackslash\hspace{0pt}}p{#1}}
 
 % ATU colours.
+\definecolor{atuteal}{RGB}{0,91,94}
 \definecolor{atunavy}{RGB}{0,26,121}
-\definecolor{atuteal}{RGB}{123,185,203} 
-\definecolor{atugreen}{RGB}{0,91,94}
-\definecolor{atusand}{RGB}{255,232,212}
-\definecolor{atuorange}{RGB}{255,121,30}
-\definecolor{atuyellow}{RGB}{248,255,142}
-\definecolor{atulightgreen}{RGB}{172,245,189}
-\definecolor{atuwarmgrey}{RGB}{200,190,191}
 \definecolor{atupurple}{RGB}{77,8,87}
+\definecolor{atuwhite}{RGB}{255,255,255}
+\definecolor{atuorange}{RGB}{255,121,30}
+\definecolor{atulightblue}{RGB}{123,185,203}
+\definecolor{atulightgreen}{RGB}{172,230,189}
+\definecolor{atusand}{RGB}{250,200,180}
+\definecolor{atuyellow}{RGB}{237,240,65}
+\definecolor{atuwarmgrey}{RGB}{200,190,191}
+\definecolor{atugold}{RGB}{215,180,99}
 \definecolor{atuoffwhite}{RGB}{237,237,237}
 
 % Set minted up.
