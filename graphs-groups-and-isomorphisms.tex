@@ -350,7 +350,6 @@ E = {frozenset({'a', 'b'}), frozenset({'b', 'c'})}
   The first item in $t$ is mapped to the first item the tuple, the second to the second, and so on.
   The above map is then represented by the tuple $(b,c,a)$.
 
-
 \section{Automorphisms}
   In our definition of isomorphism, we said the isomorphism was from a graph $G_1$ to a graph $G_2$.
   Nothing in the definition prevents $G_1$ and $G_2$ from being the same graph.
@@ -389,5 +388,46 @@ E = {frozenset({'a', 'b'}), frozenset({'b', 'c'})}
     \caption{An automorphism of the graph.}
     \label{figure:autmorphism}
   \end{figure}
+
+
+\section{Groups}
+  Using the second, map definition of permutations above, the permutations form a group.
+  A group is a set $G$ together with a map $f: G \times G \rightarrow G$ such that the following conditions hold true.
+  This means that $f$ maps each pair of elements $(g_1,g_2)$ from $G$ to a single element of $g$.
+  Rather than writing $f((g_1,g_2))$ or even $f(g_1,g_2)$ we usually just write $g_1g_2$.
+  
+  First, there must be an identity element for $f$ in $G$.
+  This means that there must be an element $e$ in $G$ such that $eg = ge = g$ for all $g$ in $G$.
+  
+  Second, every element of $G$ must have an inverse for $f$ in $G$.
+  This means that for each $g$ in $G$ there must be an element $g^{-1}$ in $G$ such that $g^{-1}g = gg^{-1} = e$.
+
+  Finally, we must have that $(g_1 g_2)g_3 = g_1 (g_2 g_3)$ for all elements $g_1$, $g_2$, and $g_3$ in $G$.
+  That is, the order of applying $f$ shouldn't matter.
+
+  Groups have a long history in mathematics as they naturally arise in several different areas of research.
+  We know a lot about groups and can leverage decades of results in group theory.
+
+  In our case, the set of all permutations of a set form a group.
+  The operation in this case is called composition: applying one permutation and then another.
+  Every permutation has another permutation to undo it, and there is an identity permutation --- the one that maps each element to itself.
+  We can show to group of permutations of size three using a table like in Table~\ref{table:group}.
+  
+  \begin{table}
+    \centering
+    \begin{tabular}{c|cccccc}
+      $(a,b,c)$ & $(a,b,c)$ & $(a,c,b)$ & $(b,a,c)$ & $(b,c,a)$ & $(c,a,b)$ & $(c,b,a)$ \\
+      \midrule
+      $(a,b,c)$ & $(a,b,c)$ & $(a,c,b)$ & $(b,a,c)$ & $(b,c,a)$ & $(c,a,b)$ & $(c,b,a)$ \\
+      $(a,c,b)$ & $(a,c,b)$ & $(a,b,c)$ & $(b,c,a)$ & $(b,a,c)$ & $(c,b,a)$ & $(c,a,b)$ \\
+      $(b,a,c)$ & $(b,a,c)$ & $(c,a,b)$ & $(a,b,c)$ & $(c,b,a)$ & $(a,c,b)$ & $(b,c,a)$ \\
+      $(b,c,a)$ & $(b,c,a)$ & $(c,b,a)$ & $(a,c,b)$ & $(c,a,b)$ & $(a,b,c)$ & $(b,a,c)$ \\
+      $(c,a,b)$ & $(c,a,b)$ & $(b,a,c)$ & $(c,b,a)$ & $(a,b,c)$ & $(b,c,a)$ & $(a,c,b)$ \\
+      $(c,b,a)$ & $(c,b,a)$ & $(b,c,a)$ & $(c,a,b)$ & $(a,c,b)$ & $(b,a,c)$ & $(a,b,c)$ \\
+    \end{tabular}
+    \caption{Group of permutations of size three.}
+    \label{table:group}
+  \end{table}
+  \vspace{4mm}
 
 \end{document} 
