@@ -309,18 +309,85 @@ E = {frozenset({'a', 'b'}), frozenset({'b', 'c'})}
   The number of possible bijections between two sets of $n$ elements is $n!$ which grows terribly quickly compared to $n$.
 
 \section{Permutations}
-  The brute force algorithm for checking bijections for isomorphism tries all possible maps.
-  One way to generate all maps in practice is to fix a listing of the first node set and then generate all possible listings of the second node set.
+  The brute force algorithm to check bijections for isomorphism tries all possible maps.
+  One way to generate all maps in practice is to first fix an ordering of the first node set.
+  Then we generate all possible listings of the second node set.
   
   For example, suppose the first node set is $\{a, b, c, d\}$.
   Remember sets do not have order, but tuples do.
-  So we fix the tuple $t = (a, b, c, d)$ containing each element of the set exactly once.
+  So we fix the tuple $t_1 = (a, b, c, d)$ containing each element of the set exactly once.
   
-  Suppose the second node set is $\{w, x, y, z\}$ and we create again a tuple $s$ containing each of those elements in some order.
-  Let us use $s = (x, z, y, w)$ as an example for now.
-  Then we can say $t$ and $s$ represent a bijection from the first node set to the second by specifying that the first element in $t$ maps to the first in $s$, the second in $t$ to the second in $s$, and so on.
+  Suppose the second node set is $\{w, x, y, z\}$.
+  We create again a tuple $t_2$ containing each of those elements in some order.
+  For example, take $t_2 = (x, z, y, w)$.
+  Now specify that the bijection between the node sets is given by the two tuples.
+  The $i^{th}$ element in $t_1$ maps to the $i^{th}$ element in $t_2$.
   
+  Each bijection can be represented in this way.
+  How many are there?
+  Like above, there are four possible options for the first element of $t_2$, three for the second, and so on.
+  So, there are $n!$ orderings of the second vertex set in total.
+  Each of these is called a permutation of the set.
+  That is, each possible ordering of a set is called a permutation of the set.
+
+  There is a technicality when it comes to permutations that most people gloss over.
+  As we have defined them above, permutations are orderings of the set.
+  A better definition defines permutations as all possible bijections from a set to itself.
+  This turns a permutation into a kind of action, as opposed to a tuple.
+
+  Again, we fix an ordering of a set $S$, call it the tuple $t$.
+  Then we call each possible ordering of $S$ a permutation, but what we mean is that the $i^{th}$ element in each ordering is mapped to from the $i^{th}$ element in $t$\footnote{We should be careful not to confuse our tuples here with a common notation for permutations called cycle notation.}.
+
+  For example, let's take the set $S = \{a,b,c\}$.
+  Under the first definition, the $3! = 6$ permutations of $S$ are $(a,b,c)$, $(a,c,b)$, $(b,a,c)$, $(b,c,a)$, $(c,a,b)$, and $(c,b,a)$.
+  Under the second definition, the permutations are maps.
+  For instance, $\{(a,b),(b,c),(c,a)\}$ is one of the maps that is a permutation.
+  Here $a$ maps to $b$, $b$ maps to $c$, and $c$ maps to $a$.
+
+  We can see a correspondence between the definitions by fixing an ordering of the set $S$ for the second definition.
+  For instance, we can fix the ordering $t = (a,b,c)$.
+  Then each tuple in the first definition represents a map.
+  The first item in $t$ is mapped to the first item the tuple, the second to the second, and so on.
+  The above map is then represented by the tuple $(b,c,a)$.
+
 
 \section{Automorphisms}
+  In our definition of isomorphism, we said the isomorphism was from a graph $G_1$ to a graph $G_2$.
+  Nothing in the definition prevents $G_1$ and $G_2$ from being the same graph.
+  When they are the same graph, we call the isomorphism an \emph{automorphism}.
+
+  Automorphisms represent the symmetries of a graph.
+  There is always at least one automorphism for a given graph: the identity.
+  This is the identity map on the node set of the graph.
+  The identity map is the map that maps each input to itself.
+
+  Figure~\ref{figure:autmorphism} gives the idea of an automorphism.
+  Here we have two copies of the same graph.
+  The permutation of the nodes is represented by the tuple $(c,b,a)$.
+  The permutation clearly leads to an automorphism.
+
+  \begin{figure}
+    \centering
+    \begin{tikzpicture}
+      \begin{scope}[every node/.style={circle,fill=atuteal,text=white}, every edge/.style={draw=black,thick}]
+        \draw
+          (0,0) node (a) {$a$}
+          (1,1) node (b) {$b$}
+          (2,0) node (c) {$c$}
+          (a) edge (b)
+          (c) edge (b);
+      \end{scope}
+      \begin{scope}[every node/.style={circle,fill=atuteal,text=white}, every edge/.style={draw=black,thick}, xshift=40mm]
+        \draw
+          (0,0) node (a) {$c$}
+          (1,1) node (b) {$b$}
+          (2,0) node (c) {$a$}
+          (a) edge (b)
+          (c) edge (b);
+      \end{scope}
+    \end{tikzpicture}
+    \caption{An automorphism of the graph.}
+    \label{figure:autmorphism}
+  \end{figure}
 
 \end{document} 
