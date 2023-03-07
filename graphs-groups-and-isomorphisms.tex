@@ -390,6 +390,41 @@ E = {frozenset({'a', 'b'}), frozenset({'b', 'c'})}
   \end{figure}
 
 
+\section{Permutations Notation}
+  In books and online, you will find two types of notation for permutations.
+  Unfortunately, neither of these fit cleanly into our current data structures.
+  Nonetheless, it is worth looking at them.
+
+  The first uses the integers from $0$ to $n-1$ inclusive, where $n$ is the number of objects to be permuted\footnote{Alternatively, you can index from $1$ using the integers from $1$ to $n$.}.
+  We form the matrix whose first row is these integers (usually in order).
+  The second row then contains the integer to which the element in the first row should map.
+  
+  In the following example, the element at index $0$ is mapped to that at index $2$, the element at index $1$ remains where it is, and the element at index $2$ is mapped to index $0$.
+
+  $$\begin{pmatrix} 0 & 1 & 2 \\ 2 & 1 & 0 \end{pmatrix}$$
+
+  This is sometimes called two-line notation, which can be shortened to one-line notation if it is taken that the first row is just the integers in their usual order.
+
+  The second form of notation is called cycle notation and elements are broken into cycles.
+  These can be written as tuples, but are often written without the commas, although the parentheses remain.
+  The above permutation would then be written as follows.
+
+  $$ (0 \; 2) $$
+
+  A longer example would be the cycling of even positions and, separately, the cycling of odd positions where $n$ is $10$.
+
+  $$ (0 \; 2 \; 4 \; 6 \; 8 )(1 \; 3 \; 5 \; 7 \; 9 ) $$
+
+  Sometimes cycles can affect each other, in which case it is important to know whether to start with the right-most or left-most cycle.
+  The convention is the start at the right.
+
+  Each form of notation has its advantages.
+  In two-line notation it is easy to find the reverse premutation -- just swap the rows.
+  In cycle notation, it is easy to compose\footnote{Meaning apply one permutation after another.} permutations.
+  You can just pre-pend the next permutation to the current one.
+  It is also shorter to write down.
+  
+
 \section{Groups}
   Using the second, map definition of permutations above, the permutations form a group.
   A group is a set $G$ together with a map $f: G \times G \rightarrow G$ such that the following conditions hold true.
