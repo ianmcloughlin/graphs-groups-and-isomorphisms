@@ -447,18 +447,28 @@ E = {frozenset({'a', 'b'}), frozenset({'b', 'c'})}
   The operation in this case is called composition: applying one permutation and then another.
   Every permutation has another permutation to undo it, and there is an identity permutation --- the one that maps each element to itself.
   We can show to group of permutations of size three using a table like in Table~\ref{table:group}.
+  There the tuple $(a,b,c)$ is permuted by the permutations given in cycle notation in the row and columns labels.
+  The row permutation is applied first, then the column permutation.
+
+  Thus the entry $(b,c,a)$ in the row labeled $(0\;1)$ and column labeled $(1\;2)$ is calculated as follows.
+  Apply the row label $(0\;1)$ to $(a,b,c)$, giving $(b,a,c)$.
+  Then apply the column label $(1\;2)$ to $(b,a,c)$ giving $(b,c,a)$.
+  Overall, this is usually written as $(1\;2)(0\;1)(a,b,c) = $ $(1\; 2)(b,a,c)=$ $(b,c,a)$.
+  
+  Note the first permutation to be applied is written on the right and the second to the left of that.
+  So, $(1\;2)(0\;1)$ means apply $(0\;1)$ first, then $(1\;2)$.
   
   \begin{table}
     \centering
     \begin{tabular}{c|cccccc}
-      $(a,b,c)$ & $(a,b,c)$ & $(a,c,b)$ & $(b,a,c)$ & $(b,c,a)$ & $(c,a,b)$ & $(c,b,a)$ \\
+      $(a,b,c)$   & $(\;)$    & $(1\;2)$  & $(0\;1)$  & $(0\;2\;1)$ & $(0\;1\;2)$ & $(2\;0)$ \\
       \midrule
-      $(a,b,c)$ & $(a,b,c)$ & $(a,c,b)$ & $(b,a,c)$ & $(b,c,a)$ & $(c,a,b)$ & $(c,b,a)$ \\
-      $(a,c,b)$ & $(a,c,b)$ & $(a,b,c)$ & $(b,c,a)$ & $(b,a,c)$ & $(c,b,a)$ & $(c,a,b)$ \\
-      $(b,a,c)$ & $(b,a,c)$ & $(c,a,b)$ & $(a,b,c)$ & $(c,b,a)$ & $(a,c,b)$ & $(b,c,a)$ \\
-      $(b,c,a)$ & $(b,c,a)$ & $(c,b,a)$ & $(a,c,b)$ & $(c,a,b)$ & $(a,b,c)$ & $(b,a,c)$ \\
-      $(c,a,b)$ & $(c,a,b)$ & $(b,a,c)$ & $(c,b,a)$ & $(a,b,c)$ & $(b,c,a)$ & $(a,c,b)$ \\
-      $(c,b,a)$ & $(c,b,a)$ & $(b,c,a)$ & $(c,a,b)$ & $(a,c,b)$ & $(b,a,c)$ & $(a,b,c)$ \\
+      $(\;)$      & $(a,b,c)$ & $(a,c,b)$ & $(b,a,c)$ & $(b,c,a)$   & $(c,a,b)$   & $(c,b,a)$ \\
+      $(1\;2)$    & $(a,c,b)$ & $(a,b,c)$ & $(c,a,b)$ & $(c,b,a)$   & $(b,a,c)$   & $(b,c,a)$ \\
+      $(0\;1)$    & $(b,a,c)$ & $(b,c,a)$ & $(a,b,c)$ & $(a,c,b)$   & $(c,b,a)$   & $(c,a,b)$ \\
+      $(0\;2\;1)$ & $(b,c,a)$ & $(b,a,c)$ & $(c,b,a)$ & $(c,a,b)$   & $(a,b,c)$   & $(a,c,b)$ \\
+      $(0\;1\;2)$ & $(c,a,b)$ & $(c,b,a)$ & $(a,c,b)$ & $(a,b,c)$   & $(b,c,a)$   & $(b,a,c)$ \\
+      $(2\;0)$    & $(c,b,a)$ & $(c,a,b)$ & $(b,c,a)$ & $(b,a,c)$   & $(a,c,b)$   & $(a,b,c)$ \\
     \end{tabular}
     \caption{Group of permutations of size three.}
     \label{table:group}
